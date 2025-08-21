@@ -60,13 +60,40 @@ annotate service.Orders with @(
     Aggregation: {
         ApplySupported        : {
             $Type              : 'Aggregation.ApplySupportedType',
+            AggregatableProperties : [
+                {
+                    $Type : 'Aggregation.AggregatablePropertyType',
+                    Property : total,
+                },
+            ],
             GroupableProperties: [
                 buyer,
                 OrderNo
             ]
         },
         CustomAggregate #total: 'Edm.Decimal'
-    }
+    },
+    UI.SelectionPresentationVariant #table : {
+        $Type : 'UI.SelectionPresentationVariantType',
+        PresentationVariant : {
+            $Type : 'UI.PresentationVariantType',
+            Visualizations : [
+                '@UI.LineItem',
+            ],
+            SortOrder : [
+                {
+                    $Type : 'Common.SortOrderType',
+                    Property : OrderNo,
+                    Descending : false,
+                },
+            ],
+        },
+        SelectionVariant : {
+            $Type : 'UI.SelectionVariantType',
+            SelectOptions : [
+            ],
+        },
+    },
 );
 
 annotate service.Orders with {

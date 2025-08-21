@@ -9,6 +9,7 @@
   },
   "sapux": [
     "app/book",
-    "app/orders"
+    "app/orders",
+    "app/orderitems"
   ]
 }

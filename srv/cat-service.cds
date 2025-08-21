@@ -18,4 +18,7 @@ service CatalogService {
     // CustomAggregate #total : 'Edm.Decimal',
     //  }
     entity Orders     as projection on managedreport.Orders;
+
+    @readonly
+    entity OrderItems as projection on managedreport.OrderItems;
 }
