@@ -41,12 +41,37 @@ annotate service.OrderItems with @(
             GroupableProperties: [
                 ID,
                 book_ID
-            ]
+            ],
+            Transformations : [
+                'aggregate',
+                // 'topcount',
+                // 'bottomcount',
+                // 'identity',
+                'concat',
+                'groupby',
+                'filter',
+                'search'
+            ],
         },
         CustomAggregate #amount  : 'Edm.Decimal',
         CustomAggregate #quantity: 'Edm.Int'
     },
-    UI.Chart #alpChart : {
+    UI.SelectionPresentationVariant #tableView : {
+        $Type : 'UI.SelectionPresentationVariantType',
+        PresentationVariant : {
+            $Type : 'UI.PresentationVariantType',
+            Visualizations : [
+                '@UI.LineItem',
+            ],
+        },
+        SelectionVariant : {
+            $Type : 'UI.SelectionVariantType',
+            SelectOptions : [
+            ],
+        },
+        Text : 'Table View',
+    },
+    UI.Chart #chartView : {
         $Type : 'UI.ChartDefinitionType',
         ChartType : #Column,
         Dimensions : [
@@ -57,12 +82,12 @@ annotate service.OrderItems with @(
             amount,
         ],
     },
-    UI.SelectionPresentationVariant #alpChart : {
+    UI.SelectionPresentationVariant #chartView : {
         $Type : 'UI.SelectionPresentationVariantType',
         PresentationVariant : {
             $Type : 'UI.PresentationVariantType',
             Visualizations : [
-                '@UI.Chart#alpChart',
+                '@UI.Chart#chartView',
             ],
         },
         SelectionVariant : {
@@ -70,6 +95,7 @@ annotate service.OrderItems with @(
             SelectOptions : [
             ],
         },
+        Text : 'Chart View',
     },
 ) {
     amount    @Analytics.Measure  @Aggregation.default: #SUM  @Measures.ISOCurrency: currency_code;
